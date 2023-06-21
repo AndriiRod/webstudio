@@ -1,13 +1,21 @@
-const refs = {
-  body: document.body,
-  btnOpen: document.getElementById('menu-open'),
-  btnClose: document.getElementById('menu-close'),
-};
+document.body.addEventListener('click', onClick);
 
-refs.btnOpen.addEventListener('click', toggleMenu);
-refs.btnClose.addEventListener('click', toggleMenu);
+function onClick(e) {
+  if (e.target.closest('#menu-open') || e.target.closest('#menu-close')) toggleMenu();
+  if (e.target.closest('[data-modal-open]') || e.target.closest('[data-modal-close]'))
+    toggleModal();
+}
+
+function toggleOverflow() {
+  document.body.style.overflow = document.body.style.overflow === 'hidden' ? 'visible' : 'hidden';
+}
 
 function toggleMenu() {
-  refs.body.classList.toggle('mobile-menu__show');
-  document.body.style.overflow = document.body.style.overflow === 'hidden' ? 'visible' : 'hidden';
+  document.body.classList.toggle('mobile-menu__show');
+  toggleOverflow();
+}
+
+function toggleModal() {
+  document.body.classList.toggle('show-modal');
+  toggleOverflow();
 }
